@@ -87,7 +87,7 @@ if(flag_boosting == 1)
     tic;
     %% implement this
     h = []; 
-    w = ones(N_pos+N_neg,1)/(N_pos+N_neg);
+    w = ones(N_pos+N_neg,1) / (N_pos+N_neg);
     alpha = [];
     strong_error = [];
     weak_error = [];
@@ -98,12 +98,10 @@ if(flag_boosting == 1)
     end
     index = h(:,1);
     save('adaboost.mat','h','w','alpha','index','strong_error','weak_error','F');
-    %save('adaboost.mat','-v7.3','alpha','index','theta','s','y_hat','eps','err','weak_err');
     fprintf('Running AdaBoost %d with features from %d images took %.2f secs.\n', size(filters, 1), N, toc);
 else
     if flag_realboosting == 0
         load('adaboost.mat','h','w','alpha','index','strong_error','weak_error','F');
-        %load('adaboost.mat','alpha','index','theta','s','y_hat','eps','err','weak_err');
     end
 end
 
@@ -123,8 +121,8 @@ if (flag_realboosting == 1)
     eps = 1e-7;
 
     % RealBoost code:
-    for t=1:T
-        for f=1:F
+    for t = 1:T
+        for f = 1:F
             [bin_id(f,:),~] = discretize(features(f,:), num_bin);
             for i=1:N_pos
                 p(t,f,bin_id(f,i)) = p(t,f,bin_id(f,i)) + weight(i);
@@ -148,29 +146,12 @@ if (flag_realboosting == 1)
     save('F_realboost.mat','-v7.3', 'F_x');
 end
 
-% (1) top-20 haar filters
-%% implement this
-%plot_top20_haar(index,filters);
-% (2) plot training error
-%% implement this
-%plot_training_error(strong_error);
-% (3) training errors of top-1000 weak classifiers
-%% implement this
-%plot_weak_classifier_error(weak_error);
-% (4) negative positive histograms
-%% implement this
-%plot_hisgrams(F,N_pos,N_neg);
-% (5) plot ROC curves
-%% implement this
-%plot_ROC(F,N_pos,N_neg)
-% (6) detect faces
-%% implement this
 if flag_detect == 1
     min_scale = 0.075;
     overlap = 0.1;
     score_threshold = 2;
     T = size(h,1);
-    for i=1:3
+    for i = 1:3
         figure();
         candidates = [];
         if i <= 3
@@ -209,8 +190,8 @@ if flag_detect == 1
             clear II_crop;
             disp(['Finish extracting features for scale ' num2str(scale)]); 
 
-            for corner_x=1:w_0
-                for corner_y=1:h_0
+            for corner_x = 1:w_0
+                for corner_y = 1:h_0
                     % Calculate F(x)
                     h_each = zeros(T, 1);
                     id = (corner_x - 1) * h_0 + corner_y;
@@ -235,9 +216,8 @@ if flag_detect == 1
             if i > 3
                 N_hard_neg = size(hard_neg_boxes, 1);
                 I_crop = zeros(N_hard_neg, 16, 16);
-                for j=1:N_hard_neg
-                    % I_crop(j, :, :) = double(rgb2gray(imcrop(scaled_face, hard_neg_boxes(j, 1:4))));
-                    I_crop(j, :, :) = double(rgb2gray(scaled_face(corner_y:corner_y+15,corner_x:corner_x+15,:)));
+                for j = 1:N_hard_neg
+                    I_crop(j, :, :) = double(rgb2gray(scaled_face(corner_y:corner_y + 15,corner_x:corner_x + 15,:)));
                 end
                 I_crop = normalize(I_crop);
                 II_crop = integral(I_crop);
