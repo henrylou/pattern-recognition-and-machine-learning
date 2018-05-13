@@ -59,4 +59,4 @@ figure(4);
 plot(error);
 xlabel('Number of eigenvectors K');
 ylabel('Reconstruction error');
-print('1_1_reconstruction_error.png','-dpng');
+print('1_1_reconstruction_error.png','-dpng'); 
