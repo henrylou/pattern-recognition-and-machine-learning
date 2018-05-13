@@ -23,4 +23,5 @@ We have divided the 177 faces into male (88) [in the male face folder, Face 57 i
 **(5)** Find the FLD or Fisher face that distingushes male from female using the training sets, and then test it on the 20 testing faces and see how much percentage is right. This Fisher face mixes both geometry and appearance difference between male and female.  
 
 **(6)** Compute the Fisher face for the key point (geometric shape) and Fisher face for the appearance (after aligning them to the mean position) respectively, and thus each face is projected to a 2D-feature space, and visualize how separable these points are.  
+
 [The within-class scatter matrix is again very high dimensional, you can either use the trick that we used in (1) for computing its eigen- values and eigen-vectors, or you may compute the Fisher faces over the reduced dimensions in steps (2) and (3): i.e. each face is now reduced to 10-Dimensional geometric vector + 10 dimensional appearance vector. After the Fisher linear Discriminant analysis, we represent each face by as few as 2 dimensions for discriminative purpose and yet, it can tell apart male from female!
