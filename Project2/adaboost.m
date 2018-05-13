@@ -1,4 +1,4 @@
-function adaboost()
+function adaboost() 
 
 % flags
 flag_data_subset = 0;
